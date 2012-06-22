@@ -7,11 +7,11 @@ filetype off " toggle for vundle
 
 set runtimepath=$VIMHOME,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$VIMHOME/after,$VIMHOME/bundle/vundle
 
-call vundle#rc()
+call vundle#rc('$VIMHOME/bundle')
 
 " --- Vundle --- "
 "  - Required -  "
-Bundle 'kentfrazier/vundle'
+Bundle 'gmarik/vundle'
 
 "  - Optional -  "
 Bundle 'kevinw/pyflakes'
