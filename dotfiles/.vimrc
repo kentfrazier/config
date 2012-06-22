@@ -11,7 +11,7 @@ call vundle#rc('$VIMHOME/bundle')
 
 " --- Vundle --- "
 "  - Required -  "
-Bundle 'gmarik/vundle'
+" Bundle 'gmarik/vundle' " handled by git submodule
 
 "  - Optional -  "
 Bundle 'kevinw/pyflakes'
