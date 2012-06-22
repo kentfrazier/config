@@ -1,0 +1,1 @@
+source $CONFIGHOME/dotfiles/.vimrc

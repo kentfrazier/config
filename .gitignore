@@ -4,3 +4,17 @@ cabal-dev
 *.hi
 *.chi
 *.chs.h
+*.pyc
+*.swp
+*~
+*.orig
+.xmonad/history
+.xmonad/xmonad
+.xmonad/xmonad-i386-linux
+.xmonad/xmonad.errors
+scripts/environment.sh
+vim/sessions
+vim/.backup
+vim/.undo
+vim/.netrwhist
+vim/bundle/*

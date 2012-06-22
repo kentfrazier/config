@@ -1,0 +1,5 @@
+[user]
+	name = $MYNAME
+	email = $MYEMAIL
+[push]
+	default = upstream

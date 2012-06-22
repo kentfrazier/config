@@ -1,0 +1,19 @@
+-- Intervals are in tenths of a second
+
+Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+       , bgColor = "black"
+       , fgColor = "grey"
+       , position = Top
+       , lowerOnStart = True
+       , commands = [ Run Wireless "wlan0" ["-L","25","--low","red","--normal","green","--high","green"] 50
+                    , Run Battery ["-L","20","-H","50","--low","red","--high","green","-t","<left>%"] 50
+                    , Run Date "%a %m/%d/%Y %H:%M" "date" 100
+                    , Run StdinReader
+                    --, Run Volume "default" "Master" [] 5
+                    , Run Com "$CONFIGHOME/scripts/volume.sh" [] "custom_volume" 10
+                    --, Run Com "date" [] "volume2" 10
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %custom_volume% <fc=#555555>|</fc> %wlan0wi% <fc=#555555>|</fc> %battery% <fc=#555555>|</fc> %date%"
+       }

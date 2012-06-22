@@ -1,0 +1,11 @@
+[ui]
+username = $MYNAME <$MYEMAIL>
+
+[extensions]
+fetch =
+
+[trusted]
+users = root
+
+[web]
+cacerts = $HG_CACERTS
