@@ -10,7 +10,7 @@ for name in ${SCRIPTS[@]}; do
     mv $HOME/$name $BACKUP_DIR;
 done
 for name in ${SCRIPTS[@]}; do
-    ln -s $CONFIGHOME/$name $HOME/$name;
+    ln -s $CONFIGHOME/dotfiles/$name $HOME/$name;
 done
 
 mkdir --parents \
