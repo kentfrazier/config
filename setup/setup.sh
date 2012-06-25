@@ -4,7 +4,7 @@ BACKUP_DIR=$HOME/config_backup_`date +%Y%m%d_%H%M%S`
 
 mkdir $BACKUP_DIR
 
-SCRIPTS=$(ls $CONFIGHOME/dotfiles)
+SCRIPTS=$(ls -A $CONFIGHOME/dotfiles)
 
 for name in ${SCRIPTS[@]}; do
     mv $HOME/$name $BACKUP_DIR;
