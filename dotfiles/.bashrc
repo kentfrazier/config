@@ -2,10 +2,8 @@ export EDITOR="vim"
 
 if [ -z "$CONFIGHOME" ]; then
   source $HOME/.bash_profile
-  exit 1
+  #exit 1
 fi
-
-source $CONFIGHOME/scripts/private_env.sh
 
 # Check for an interactive session
 [ -z "$PS1" ] && return

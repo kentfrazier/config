@@ -1,3 +1,4 @@
 --python-kinds=cfmv
+--python-kinds=-i
 --javascript-kinds=fcmpv
 --extra=+f

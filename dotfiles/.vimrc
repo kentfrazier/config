@@ -3,23 +3,46 @@ set nocompatible    " Disables vi-compatible mode
 " Set up environment variables to allow vim files to live in the config dir
 let $VIMHOME = $CONFIGHOME . '/vim'
 
+" --- python-mode settings --- #
+let g:pymode_run = 0
+let g:pymode_lint_cwindow = 0
+let g:pymode_lint_checker = "pyflakes,mccabe"
+let g:pymode_rope_auto_project = 0
+let g:pymode_folding = 0
+let g:pymode_utils_whitespaces = 0
+
+let g:ragtag_global_maps = 1
+
+let g:sessionman_sessions_path = $CONFIG_STORAGE . '/vim/sessions'
+
+let g:html_indent_strict_table = 0
+
+let g:NERDTreeIgnore = ['\~$', '\.py[co]$']
+
 filetype off " toggle for vundle
 
 set runtimepath=$VIMHOME,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$VIMHOME/after,$VIMHOME/bundle/vundle
 
-call vundle#rc('$VIMHOME/bundle')
+call vundle#rc($VIMHOME . '/bundle')
 
 " --- Vundle --- "
 "  - Required -  "
-" Bundle 'gmarik/vundle' " handled by git submodule
+Bundle 'gmarik/vundle'
 
-"  - Optional -  "
-Bundle 'kevinw/pyflakes'
+"  - Github -  "
+Bundle 'chriskempson/base16-vim'
+Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+Bundle 'kentfrazier/html-improved-indentation'
+Bundle 'klen/python-mode'
 Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'msanders/snipmate.vim'
+Bundle 'nelstrom/vim-markdown-folding'
+Bundle 'nelstrom/vim-visual-star-search'
 Bundle 'pangloss/vim-javascript'
+Bundle 'puppetlabs/puppet-syntax-vim'
+Bundle 'rollxx/vim-antlr'
 Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
+"Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-endwise'
@@ -28,20 +51,21 @@ Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 
+" - Vim Site - "
 Bundle 'django.vim'
 Bundle 'FuzzyFinder'
-Bundle 'html-improved-indentation'
-Bundle 'indentpython.vim'
-Bundle 'javascript.vim'
+"Bundle 'indentpython.vim'
+"Bundle 'javascript.vim'
 Bundle 'L9'
 Bundle 'LargeFile'
 Bundle 'matchit.zip'
-Bundle 'python.vim--Vasiliev'
-Bundle 'pythoncomplete'
+"Bundle 'python.vim--Vasiliev'
+"Bundle 'pythoncomplete'
 Bundle 'sessionman.vim'
 Bundle 'taglist.vim'
 Bundle 'ZoomWin'
 
+" - Other Git - "
 Bundle 'git://repo.or.cz/vcscommand'
 " -------------- "
 
@@ -50,10 +74,6 @@ filetype plugin on
 filetype indent on
 
 set notitle         " Prevents annoying title message
-
-let g:ragtag_global_maps = 1
-
-let g:sessionman_sessions_path = $CONFIG_STORAGE . '/vim/sessions'
 
 set background=dark
 if has("gui_running")
@@ -95,7 +115,6 @@ set backspace=indent,eol,start " Allows backspace to delete these
 set cmdheight=1     " Sets height of command line to 1
 set incsearch       " Highlight search matches as they are typed
 set ruler           " Location information
-set foldenable      " Enable folding
 set autoread        " Automatically updates updated files
 set laststatus=2    " Always turns status bar on
 set visualbell t_vb= " Disables beep and screen flash on error
@@ -138,6 +157,9 @@ set undolevels=1000          " Keep the last 1000 changes
 
 " Format for status line
 set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+
+" Make Y work more like D and other commands
+map Y y$
 
 map <F2> :NERDTreeToggle<CR>
 map <F3> :TlistToggle<CR>
@@ -216,8 +238,8 @@ map <LEADER>h :GundoToggle<CR>
 map <LEADER>sp :setlocal spell! spelllang=en_us<CR>
 
 " --- Buffer Navigation --- "
-map <A-LEFT> :bprevious<CR>
-map <A-RIGHT> :bnext<CR>
+map <A-Left> :bprevious<CR>
+map <A-Right> :bnext<CR>
 
 " --- Arguments Navigation --- "
 map <C-PageUp> :previous<CR>
@@ -225,10 +247,17 @@ map <C-PageDown> :next<CR>
 map <C-Home> :first<CR>
 map <C-End> :last<CR>
 
+" --- Tab Navigation --- "
+map <C-S-Tab> :tabprevious<CR>
+map <C-Tab> :tabnext<CR>
+map <LEADER>tc :tabclose<CR>
+
 if exists('+colorcolumn')
     set colorcolumn=81
 else
-    autocmd BufWinEnter *.py let b:m1=matchadd('ColorColumn', '\%80v.', -1)
+    if !exists("s:autocmd_loaded")
+        autocmd BufWinEnter *.py let b:m1=matchadd('ColorColumn', '\%80v.', -1)
+    endif
 endif
 
 if !exists("s:autocmd_loaded")
@@ -414,3 +443,17 @@ function! Grep(...)
     call delete(tmpfile)
 endfunction
 command! -nargs=* -complete=file Grep call Grep(<f-args>)
+
+function! WriteToFile(filename, command)
+    exec 'redir! >' . a:filename
+    exec a:command
+    redir END
+endfunction
+
+function! FullPyLint()
+    let old_checker_val = g:pymode_lint_checker
+    let g:pymode_lint_checker = "pyflakes,mccabe,pep8"
+    exec ':PyLint'
+    let g:pymode_lint_checker = old_checker_val
+endfunction
+command! FullPyLint call FullPyLint()

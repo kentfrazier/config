@@ -98,5 +98,5 @@ hi diffText     ctermfg=bg  guifg=bg      ctermbg=174 guibg=#df8787 cterm=none g
 " Custom classes
 hi ColorColumn                            ctermbg=238 guibg=#262626
 
-autocmd! InsertEnter * hi Normal ctermfg=252 guifg=#d0d0d0 ctermbg=234 guibg=#1c221c cterm=none gui=none
-autocmd! InsertLeave * hi Normal ctermfg=252 guifg=#d0d0d0 ctermbg=234 guibg=#1c1c1c cterm=none gui=none
+"autocmd! InsertEnter * hi Normal ctermfg=252 guifg=#d0d0d0 ctermbg=234 guibg=#1c221c cterm=none gui=none
+"autocmd! InsertLeave * hi Normal ctermfg=252 guifg=#d0d0d0 ctermbg=234 guibg=#1c1c1c cterm=none gui=none
