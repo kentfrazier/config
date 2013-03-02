@@ -1,5 +1,7 @@
 [user]
-	name = $MYNAME
-	email = $MYEMAIL
+	name = Kent Frazier
+	email = kentfrazier@gmail.com
 [push]
 	default = upstream
+[remote-hg]
+	hg-git-compat = true
