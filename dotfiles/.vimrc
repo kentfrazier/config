@@ -30,10 +30,10 @@ call vundle#rc($VIMHOME . '/bundle')
 Bundle 'gmarik/vundle'
 
 "  - Github -  "
-Bundle 'chriskempson/base16-vim'
-Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+Bundle 'editorconfig/editorconfig-vim'
 Bundle 'kentfrazier/html-improved-indentation'
 Bundle 'klen/python-mode'
+Bundle 'leshill/vim-json'
 Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'msanders/snipmate.vim'
 Bundle 'nelstrom/vim-markdown-folding'
@@ -42,7 +42,6 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'rollxx/vim-antlr'
 Bundle 'scrooloose/nerdtree'
-"Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-endwise'
@@ -50,17 +49,14 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
+Bundle 'walm/jshint.vim'
 
 " - Vim Site - "
 Bundle 'django.vim'
 Bundle 'FuzzyFinder'
-"Bundle 'indentpython.vim'
-"Bundle 'javascript.vim'
 Bundle 'L9'
 Bundle 'LargeFile'
 Bundle 'matchit.zip'
-"Bundle 'python.vim--Vasiliev'
-"Bundle 'pythoncomplete'
 Bundle 'sessionman.vim'
 Bundle 'taglist.vim'
 Bundle 'ZoomWin'
@@ -156,7 +152,7 @@ set undolevels=1000          " Keep the last 1000 changes
 "endif
 
 " Format for status line
-set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %{fugitive#statusline()}\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
 " Make Y work more like D and other commands
 map Y y$
@@ -450,10 +446,10 @@ function! WriteToFile(filename, command)
     redir END
 endfunction
 
-function! FullPyLint()
+function! PyLintFull()
     let old_checker_val = g:pymode_lint_checker
     let g:pymode_lint_checker = "pyflakes,mccabe,pep8"
     exec ':PyLint'
     let g:pymode_lint_checker = old_checker_val
 endfunction
-command! FullPyLint call FullPyLint()
+command! PyLintFull call PyLintFull()
