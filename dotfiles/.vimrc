@@ -52,14 +52,14 @@ Bundle 'tpope/vim-surround'
 Bundle 'walm/jshint.vim'
 
 " - Vim Site - "
-Bundle 'django.vim'
 Bundle 'FuzzyFinder'
 Bundle 'L9'
 Bundle 'LargeFile'
+Bundle 'ZoomWin'
+Bundle 'django.vim'
 Bundle 'matchit.zip'
 Bundle 'sessionman.vim'
 Bundle 'taglist.vim'
-Bundle 'ZoomWin'
 
 " - Other Git - "
 Bundle 'git://repo.or.cz/vcscommand'
