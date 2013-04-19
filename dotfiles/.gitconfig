@@ -3,5 +3,3 @@
 	email = kentfrazier@gmail.com
 [push]
 	default = upstream
-[remote-hg]
-	hg-git-compat = true
