@@ -3,3 +3,7 @@
 	email = kentfrazier@gmail.com
 [push]
 	default = upstream
+[fetch]
+    recurseSubmodules = true
+[core]
+	excludesfile = $HOME/.gitignore
