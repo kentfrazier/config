@@ -125,6 +125,9 @@ set mouse=a         " allow the mouse to work in terminal version
 set clipboard=unnamed " make the * register point at the " register
 set tildeop         " make ~ behave like an operator
 
+set splitright      " new splits open to the right of the current
+set splitbelow      " new splits open below the current
+
 set iskeyword+=_ " most languages allow underscores as identifier chars
 
 " Search for a tags file up the path until one is found
