@@ -130,6 +130,9 @@ set iskeyword+=_ " most languages allow underscores as identifier chars
 " Search for a tags file up the path until one is found
 " see `:help file-searching`
 set tags=./ctags;/,./tags;/
+if $VIRTUAL_ENV != ''
+    exec 'set tags=' . &tags . ',$VIRTUAL_ENV/**/ctags,$VIRTUAL_ENV/**/tags'
+endif
 
 " --- Backup Handling --- "
 set nobackup                     " Turn off persistent backup
@@ -456,3 +459,18 @@ function! PyLintFull()
     let g:pymode_lint_checker = old_checker_val
 endfunction
 command! PyLintFull call PyLintFull()
+
+function! GenerateTags()
+    let tag_tuples = []
+    if $VIRTUAL_ENV != ""
+        call add(tag_tuples, [fnamemodify(getcwd(), ':~:.'), $VIRTUAL_ENV . '/ctags'])
+        call add(tag_tuples, [$VIRTUAL_ENV . '/lib', $VIRTUAL_ENV . '/lib/ctags'])
+    else
+        call add(tag_tuples, ['.', './ctags'])
+    endif
+
+    for tag_tuple in tag_tuples
+        exec '!ctags -Rf ' . tag_tuple[1] . ' ' . tag_tuple[0]
+    endfor
+endfunction
+command! GenerateTags call GenerateTags()
