@@ -278,6 +278,9 @@ function! SudoWrite(filename)
     endfor
 endfunction
 
+" Expand %% into current path in command mode
+cabbr <expr> %% expand('%:h:~:.')
+
 command! -nargs=1 BW call WipeMatchingBuffers('<args>')
 command! BWE call WipeNonDescendentBuffers()
 
