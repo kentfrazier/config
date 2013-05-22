@@ -1,9 +1,4 @@
-export EDITOR="vim"
-
-if [ -z "$CONFIGHOME" ]; then
-  source $HOME/.bash_profile
-  #exit 1
-fi
+which virtualenvwrapper.sh > /dev/null && source `which virtualenvwrapper.sh`
 
 # Check for an interactive session
 [ -z "$PS1" ] && return
@@ -54,3 +49,5 @@ alias docmirror="wget -A htm,html,jpg,jpeg,gif,png,txt,js,css \
     --page-requisites --convert-links --adjust-extension"
 
 alias usbnet="sudo ifconfig usb0 up && sudo dhcpcd"
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
