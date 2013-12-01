@@ -11,14 +11,18 @@ complete -cf sudo
 #alias sudo="A=`alias` sudo "
 alias sudo="sudo "
 
-alias ls="ls --color=auto"
+alias ls="ls -GFh"
 alias ll="ls -lh"
 alias la="ls -A"
 alias lla="ls -lhA"
 alias lsd="ls -lh | grep \"^d\""
 alias lsl="ls -lh | grep \"^l\""
 
-alias psg="ps aux | grep"
+psg () {
+    local search
+    search="$(printf '[%s]%s' ${1:0:1} ${1:1})"
+    ps aux | grep "$search"
+}
 alias fontlist="fc-list | sed 's,:.*,,' | sort -u"
 
 alias paclist="pacman -Sl | cut -d' ' -f2 | grep"
@@ -50,4 +54,8 @@ alias docmirror="wget -A htm,html,jpg,jpeg,gif,png,txt,js,css \
 
 alias usbnet="sudo ifconfig usb0 up && sudo dhcpcd"
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+# rbenv setup
+if [[ -d "$HOME/.rbenv/bin" ]]; then
+    export PATH=$HOME/.rbenv/bin:$PATH
+    eval "$(rbenv init -)"
+fi

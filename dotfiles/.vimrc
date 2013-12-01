@@ -50,6 +50,8 @@ Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'walm/jshint.vim'
+Bundle 'derekwyatt/vim-scala'
+Bundle 'ktvoelker/sbt-vim'
 
 " - Vim Site - "
 Bundle 'FuzzyFinder'
@@ -77,12 +79,13 @@ if has("gui_running")
     colorscheme xoria256
     set guioptions-=T   " Remove button toolbar
     set cursorline      " Highlights current line
+    set guifont=DejaVu\ Sans\ Mono\ 12,Consolas:h12:cANSI,Menlo\ Regular:h14
 
-    if has("unix")
-        set guifont=DejaVu\ Sans\ Mono\ 12
-    elseif has("win32")
-        set guifont=Consolas:h12:cANSI
-    endif
+""    if has("unix")
+""        set guifont=DejaVu\ Sans\ Mono\ 12
+""    elseif has("win32")
+""        set guifont=Consolas:h12:cANSI
+""    endif
 endif
 
 syntax on           " Turn on syntax highlighting
@@ -125,16 +128,13 @@ set mouse=a         " allow the mouse to work in terminal version
 set clipboard=unnamed " make the * register point at the " register
 set tildeop         " make ~ behave like an operator
 
-set splitright      " new splits open to the right of the current
-set splitbelow      " new splits open below the current
-
 set iskeyword+=_ " most languages allow underscores as identifier chars
 
 " Search for a tags file up the path until one is found
 " see `:help file-searching`
-set tags=./ctags;/,./tags;/
+set tags=./ctags;/
 if $VIRTUAL_ENV != ''
-    exec 'set tags=' . &tags . ',$VIRTUAL_ENV/**/ctags,$VIRTUAL_ENV/**/tags'
+    exec "set tags=$VIRTUAL_ENV/lib/ctags,$VIRTUAL_ENV/ctags," . &tags
 endif
 
 " --- Backup Handling --- "
