@@ -16,8 +16,8 @@ build_alias () {
 
     if alias "$src" >/dev/null 2>&1; then
         current_src="$(alias "$src")"
-        current_src="${current_src:10:-1}"
-        echo "$current_src"
+        current_src="${current_src:10}"
+        current_src="${current_src:0:((${#current_src}-1))}"
     else
         current_src="$src"
     fi
