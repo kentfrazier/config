@@ -1,28 +1,50 @@
-which virtualenvwrapper.sh > /dev/null && source `which virtualenvwrapper.sh`
-
 # Check for an interactive session
 [ -z "$PS1" ] && return
+
+psg () {
+    local search="$(printf '[%s]%s' ${1:0:1} ${1:1})"
+    ps aux | grep "$search"
+}
+
+build_alias () {
+    local dest="$1"
+    shift
+    local src="$1"
+    shift
+    local args="$@"
+    local current_src
+
+    if alias "$src" >/dev/null 2>&1; then
+        current_src="$(alias "$src")"
+        current_src="${current_src:10:-1}"
+        echo "$current_src"
+    else
+        current_src="$src"
+    fi
+
+    alias "$dest"="$current_src $args"
+}
+
+which virtualenvwrapper.sh > /dev/null && source `which virtualenvwrapper.sh`
+
+alias ls="ls"
+
+if [[ -e "$HOME/.bashrc.$(uname -s)" ]]; then
+    . "$HOME/.bashrc.$(uname -s)" 
+fi
 
 PS1='[\W]\$ '
 
 complete -cf sudo  
 
 # Aliases
-#alias sudo="A=`alias` sudo "
 alias sudo="sudo "
 
-alias ls="ls -GFh"
-alias ll="ls -lh"
-alias la="ls -A"
-alias lla="ls -lhA"
-alias lsd="ls -lh | grep \"^d\""
-alias lsl="ls -lh | grep \"^l\""
+build_alias ls ls -F
+build_alias ll ls -lh
+build_alias la ls -A
+build_alias lla ls -lhA
 
-psg () {
-    local search
-    search="$(printf '[%s]%s' ${1:0:1} ${1:1})"
-    ps aux | grep "$search"
-}
 alias fontlist="fc-list | sed 's,:.*,,' | sort -u"
 
 alias paclist="pacman -Sl | cut -d' ' -f2 | grep"
