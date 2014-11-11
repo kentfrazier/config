@@ -30,9 +30,13 @@ call vundle#rc($VIMHOME . '/bundle')
 Bundle 'gmarik/vundle'
 
 "  - Github -  "
+Bundle 'derekwyatt/vim-scala'
 Bundle 'editorconfig/editorconfig-vim'
+Bundle 'jmcantrell/vim-virtualenv'
+Bundle 'kchmck/vim-coffee-script'
 Bundle 'kentfrazier/html-improved-indentation'
 Bundle 'klen/python-mode'
+Bundle 'ktvoelker/sbt-vim'
 Bundle 'leshill/vim-json'
 Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'msanders/snipmate.vim'
@@ -50,8 +54,6 @@ Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'walm/jshint.vim'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'ktvoelker/sbt-vim'
 
 " - Vim Site - "
 Bundle 'FuzzyFinder'
@@ -79,13 +81,7 @@ if has("gui_running")
     colorscheme xoria256
     set guioptions-=T   " Remove button toolbar
     set cursorline      " Highlights current line
-    set guifont=DejaVu\ Sans\ Mono\ 12,Consolas:h12:cANSI,Menlo\ Regular:h14
-
-""    if has("unix")
-""        set guifont=DejaVu\ Sans\ Mono\ 12
-""    elseif has("win32")
-""        set guifont=Consolas:h12:cANSI
-""    endif
+    set guifont=Source\ Code\ Pro\ Medium\ 12,Source\ Code\ Pro\ Medium:h14,DejaVu\ Sans\ Mono\ 12,Consolas:h12:cANSI,Menlo\ Regular:h14
 endif
 
 syntax on           " Turn on syntax highlighting
@@ -127,21 +123,28 @@ set virtualedit=block
 set mouse=a         " allow the mouse to work in terminal version
 set clipboard=unnamed " make the * register point at the " register
 set tildeop         " make ~ behave like an operator
+set diffopt=filler,vertical " ensure diff splits vertically by default
 
 set iskeyword+=_ " most languages allow underscores as identifier chars
 
-" Search for a tags file up the path until one is found
-" see `:help file-searching`
-set tags=./ctags;/
-if $VIRTUAL_ENV != ''
-    exec "set tags=$VIRTUAL_ENV/lib/ctags,$VIRTUAL_ENV/ctags," . &tags
-endif
+function! SetCtagsPath()
+    " Search for a tags file up the path until one is found
+    " see `:help file-searching`
+    set tags=./ctags;/
+    if $CTAGS_DIRECTORY != ''
+        exec "set tags=$CTAGS_DIRECTORY" . fnamemodify(getcwd(), ':p') . "ctags;$CTAGS_DIRECTORY," . &tags
+    endif
+    if $VIRTUAL_ENV != ''
+        exec "set tags=$VIRTUAL_ENV/lib/ctags,$VIRTUAL_ENV/ctags," . &tags
+    endif
+endfunction
+call SetCtagsPath()
 
 " --- Backup Handling --- "
 set nobackup                     " Turn off persistent backup
 set writebackup                  " Turn on temporary backups
-set backupdir=$CONFIG_STORAGE/vim/backup,. " Backup directories
-set directory=$CONFIG_STORAGE/vim/backup,. " Backup directories
+set backupdir=$CONFIG_STORAGE/vim/backup//,. " Backup directories
+set directory=$CONFIG_STORAGE/vim/swap//,. " Backup directories
 
 " --- Undo Handling --- "
 if has("persistent_undo")
@@ -464,10 +467,15 @@ endfunction
 command! PyLintFull call PyLintFull()
 
 function! GenerateTags()
+    let curdir = fnamemodify(getcwd(), ':p')
     let tag_tuples = []
     if $VIRTUAL_ENV != ""
         call add(tag_tuples, [fnamemodify(getcwd(), ':~:.'), $VIRTUAL_ENV . '/ctags'])
         call add(tag_tuples, [$VIRTUAL_ENV . '/lib', $VIRTUAL_ENV . '/lib/ctags'])
+    elseif $CTAGS_DIRECTORY != ""
+        let ctagdir = $CTAGS_DIRECTORY . curdir
+        exec '!mkdir -p ' . ctagdir
+        call add(tag_tuples, [curdir, $CTAGS_DIRECTORY . curdir . 'ctags'])
     else
         call add(tag_tuples, ['.', './ctags'])
     endif
@@ -475,5 +483,9 @@ function! GenerateTags()
     for tag_tuple in tag_tuples
         exec '!ctags -Rf ' . tag_tuple[1] . ' ' . tag_tuple[0]
     endfor
+
+    call SetCtagsPath()
 endfunction
 command! GenerateTags call GenerateTags()
+
+command! -range JSONPrettify <line1>,<line2>!python -m json.tool

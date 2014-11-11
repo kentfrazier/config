@@ -7,3 +7,6 @@
     recurseSubmodules = true
 [core]
 	excludesfile = $HOME/.gitignore
+	logallrefupdates = true
+[pull]
+	ff = only

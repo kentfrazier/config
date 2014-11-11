@@ -1,5 +1,5 @@
 [ui]
-username = $MYNAME <$MYEMAIL>
+username = Kent Frazier <kentfrazier@gmail.com>
 
 [extensions]
 fetch =
@@ -8,4 +8,4 @@ fetch =
 users = root
 
 [web]
-cacerts = $HG_CACERTS
+cacerts = /etc/hg-dummy-cert.pem

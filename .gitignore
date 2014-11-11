@@ -21,3 +21,4 @@ vim/.backup
 vim/.undo
 vim/.netrwhist
 vim/bundle/*
+*.private
