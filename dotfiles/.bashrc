@@ -53,3 +53,17 @@ build_alias lla ls -lhA
 alias fontlist="fc-list | sed 's,:.*,,' | sort -u"
 alias vi="vim"
 alias ssh="ssh -C4c arcfour,blowfish-cbc"
+
+# --- History File Management --- #
+HISTDIR="$HOME/.history" 
+if [[ ! -d "$HISTDIR" ]]; then
+    mkdir "$HISTDIR"
+    chmod 0700 "$HISTDIR"
+fi
+HISTTIMEFORMAT='%F %T '
+HISTFILE="$HISTDIR/history.$$"  # Make process-specific history file
+HISTFILESIZE=0                  # close any old history files
+HISTFILESIZE=4096               # and set a large new size
+HISTSIZE=4096
+
+alias histsearch="grep $HISTDIR"

@@ -6,10 +6,14 @@ let $VIMHOME = $CONFIGHOME . '/vim'
 " --- python-mode settings --- #
 let g:pymode_run = 0
 let g:pymode_lint_cwindow = 0
-let g:pymode_lint_checker = "pyflakes,mccabe"
-let g:pymode_rope_auto_project = 0
+let g:pymode_lint_checkers = ['pyflakes', 'mccabe']
 let g:pymode_folding = 0
 let g:pymode_utils_whitespaces = 0
+let g:pymode_virtualenv = 1
+let g:pymode_lint_comment_symbol = ''
+let g:pymode_rope = 0
+let g:pymode_rope_auto_project = 0
+let g:pymode_rope_complete_on_dot = 0
 
 let g:ragtag_global_maps = 1
 

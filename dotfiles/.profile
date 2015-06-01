@@ -17,10 +17,15 @@ if [[ -e "$HOME/.profile.private" ]]; then
     . "$HOME/.profile.private"
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    export PATH="$HOME/bin:$PATH"
-fi
+add_path() {
+    NEW_PATH="$1"
+    if [ -d "$NEW_PATH" ] ; then
+        export PATH="$NEW_PATH:$PATH"
+    fi
+}
+
+add_path "$HOME/Dropbox/scripts"
+add_path "$HOME/bin"
 
 export EDITOR="vim"
 export CONFIGHOME="$HOME/Dropbox/config"
@@ -42,7 +47,7 @@ if [ ! -d "$CONFIG_STORAGE" ]; then
 fi
 
 if [ -d "$HOME/.rbenv" ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
+    add_path "$HOME/.rbenv/bin"
     eval "$(rbenv init -)"
     rbenv rehash
 elif [ -s "$HOME/.rvm/scripts/rvm" ]; then
