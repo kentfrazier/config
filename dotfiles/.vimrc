@@ -40,7 +40,7 @@ Bundle 'jmcantrell/vim-virtualenv'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'kentfrazier/html-improved-indentation'
 Bundle 'klen/python-mode'
-Bundle 'ktvoelker/sbt-vim'
+Bundle 'kentfrazier/sbt-vim'
 Bundle 'leshill/vim-json'
 Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'msanders/snipmate.vim'
@@ -136,7 +136,7 @@ function! SetCtagsPath()
     " see `:help file-searching`
     set tags=./ctags;/
     if $CTAGS_DIRECTORY != ''
-        exec "set tags=$CTAGS_DIRECTORY" . fnamemodify(getcwd(), ':p') . "ctags;$CTAGS_DIRECTORY," . &tags
+        exec "set tags=$CTAGS_DIRECTORY" . fnameescape(fnamemodify(getcwd(), ':p')) . "ctags;$CTAGS_DIRECTORY," . &tags
     endif
     if $VIRTUAL_ENV != ''
         exec "set tags=$VIRTUAL_ENV/lib/ctags,$VIRTUAL_ENV/ctags," . &tags

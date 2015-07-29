@@ -54,8 +54,8 @@ elif [ -s "$HOME/.rvm/scripts/rvm" ]; then
     . "$HOME/.rvm/scripts/rvm" 
 fi
 
-if [[ -f /usr/libexec/java_home ]]; then
-    export JAVA_HOME="$(/usr/libexec/java_home -v1.7)"
-fi
-
-export MAVEN_OPTS='-Xmx1024m -XX:MaxPermSize=256m'
+#if [[ -f /usr/libexec/java_home ]]; then
+#    export JAVA_HOME="$(/usr/libexec/java_home -v1.7)"
+#fi
+#
+#export MAVEN_OPTS='-Xmx1024m -XX:MaxPermSize=256m'

@@ -1,12 +1,12 @@
-if [ -f ~/.profile ]; then
-    source ~/.profile
+if [ -f  "$HOME/.profile" ]; then
+    . "$HOME/.profile"
 fi
 
-if [ -f ~/.bashrc ]; then
-    source ~/.bashrc
+if [ -f "$HOME/.bashrc" ]; then
+    . "$HOME/.bashrc"
 fi
 
-if [[ -e "$HOME/.bash_profile.$(uname -s)" ]]; then
+if [ -e "$HOME/.bash_profile.$(uname -s)" ]; then
     . "$HOME/.bash_profile.$(uname -s)" 
 fi
 
