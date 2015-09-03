@@ -6,7 +6,7 @@ fi
 if [[ -z "$CONFIG_STORAGE" ]]; then
     CONFIG_STORAGE=$HOME/.config_storage
 fi
-mkdir -p $CONFIG_STORAGE/vim/{sessions,backup,undo}
+mkdir -p $CONFIG_STORAGE/vim/{sessions,backup,undo,swap}
 
 BACKUP_DIR="$HOME/config_backup_`date +%Y%m%d_%H%M%S`"
 mkdir "$BACKUP_DIR"

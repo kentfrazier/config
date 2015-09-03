@@ -32,15 +32,10 @@ export CONFIGHOME="$HOME/Dropbox/config"
 export CONFIG_STORAGE="$HOME/.config_storage"
 export CTAGS_DIRECTORY="$CONFIG_STORAGE/ctags"
 export WORKON_HOME="$HOME/.virtualenvs"
-export GREP_OPTIONS=" \
-    --color=auto \
-    --exclude=ctags \
-    --exclude-dir=.git \
-    --exclude-dir=.svn \
-    --exclude-dir=.hg \
-    --exclude=*.pyc \
-    --exclude=*.pyo\
-    "
+
+if [ -n "$HOMEBREW_PREFIX" ]; then
+    export MANPATH="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnuman"
+fi
 
 if [ ! -d "$CONFIG_STORAGE" ]; then
     mkdir -p "$CONFIG_STORAGE"

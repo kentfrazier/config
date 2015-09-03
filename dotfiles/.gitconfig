@@ -6,7 +6,7 @@
 [fetch]
     recurseSubmodules = true
 [core]
-	excludesfile = $HOME/.gitignore
+	excludesfile = $HOME/.gitignore_global
 	logallrefupdates = true
 [pull]
 	ff = only
