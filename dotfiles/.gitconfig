@@ -10,3 +10,5 @@
 	logallrefupdates = true
 [pull]
 	ff = only
+[stash]
+    keep-index = true

@@ -30,3 +30,5 @@ alias grep="$grep \
     --exclude=*.pyo\
     "
 alias arc="$HOME/projects/arcanist/bin/arc"
+
+add_path "$HOME/anaconda/bin"

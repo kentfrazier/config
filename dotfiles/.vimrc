@@ -34,13 +34,15 @@ call vundle#rc($VIMHOME . '/bundle')
 Bundle 'gmarik/vundle'
 
 "  - Github -  "
+Bundle 'Glench/Vim-Jinja2-Syntax'
 Bundle 'derekwyatt/vim-scala'
+Bundle 'dln/avro-vim'
 Bundle 'editorconfig/editorconfig-vim'
 Bundle 'jmcantrell/vim-virtualenv'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'kentfrazier/html-improved-indentation'
-Bundle 'klen/python-mode'
 Bundle 'kentfrazier/sbt-vim'
+Bundle 'klen/python-mode'
 Bundle 'leshill/vim-json'
 Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'msanders/snipmate.vim'

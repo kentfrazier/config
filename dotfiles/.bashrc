@@ -61,9 +61,28 @@ if [[ ! -d "$HISTDIR" ]]; then
     chmod 0700 "$HISTDIR"
 fi
 HISTTIMEFORMAT='%F %T '
-HISTFILE="$HISTDIR/history.$$"  # Make process-specific history file
+HISTFILE="$HISTDIR/$(date -j +'%Y-%m-%dT%H:%M:%S')"  # Make process-specific history file
 HISTFILESIZE=0                  # close any old history files
 HISTFILESIZE=4096               # and set a large new size
 HISTSIZE=4096
 
-alias histsearch="grep $HISTDIR"
+hist-search () {
+    grep -r "$HISTDIR" -e "$1" -H --color=auto 
+}
+hist-clean () {
+    time_clause="${1:-4w}"
+    find_cmd="find $HISTDIR -type f -mtime +$time_clause"
+    echo $find_cmd
+    $find_cmd -print0 | xargs -0 ls -lt
+    read -p "Delete these files? " -n 1 -r
+    echo
+    if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+        $find_cmd -delete
+    fi
+}
+
+sbtest () {
+    timestamp=`date`
+}
+
+alias sbt-no-color='sbt -Dsbt.log.noformat=true'

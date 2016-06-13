@@ -18,13 +18,15 @@ if [[ -e "$HOME/.profile.private" ]]; then
 fi
 
 add_path() {
-    NEW_PATH="$1"
-    if [ -d "$NEW_PATH" ] ; then
-        export PATH="$NEW_PATH:$PATH"
+    local new_path="$1"
+    if [ -d "$new_path" ]; then
+        export PATH="$new_path:$PATH"
     fi
 }
+export add_path
 
 add_path "$HOME/Dropbox/scripts"
+add_path "$HOME/UADropbox/bin"
 add_path "$HOME/bin"
 
 export EDITOR="vim"
