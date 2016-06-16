@@ -9,21 +9,9 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-if [[ -e "$HOME/.profile.$(uname -s)" ]]; then
-    . "$HOME/.profile.$(uname -s)" 
-fi
+. "$HOME/.config-common"
 
-if [[ -e "$HOME/.profile.private" ]]; then
-    . "$HOME/.profile.private"
-fi
-
-add_path() {
-    local new_path="$1"
-    if [ -d "$new_path" ]; then
-        export PATH="$new_path:$PATH"
-    fi
-}
-export add_path
+source_if_exists "$HOME/.profile.$(uname -s)" "$HOME/.profile.private"
 
 add_path "$HOME/Dropbox/scripts"
 add_path "$HOME/UADropbox/bin"

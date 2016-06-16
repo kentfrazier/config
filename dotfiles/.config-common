@@ -1,0 +1,75 @@
+#!/bin/bash
+
+debug() {
+    if [ -n "$DEBUG" ]; then
+        printf "%s\n" "$*" 1>&2
+    fi
+}
+declare -fx debug
+
+declare -xa SOURCED_PATH_HASHES
+source_if_exists() {
+    # this will resolve each file to its device and inode number
+    local hash='stat -L -f %d:%i'
+    local path
+    local hashed_path
+    local already_sourced
+    for path in "$@"; do
+        if [ -e "$path" ] && [ -r "$path" ]; then
+            hashed_path="$($hash "$path")"
+            for already_sourced in "${SOURCED_PATH_HASHES[@]}"; do
+                if [ "$hashed_path" = "$already_sourced" ]; then
+                    debug "$path already sourced"
+                    continue 2
+                fi
+            done
+
+            debug "$path sourced"
+            . "$path"
+            SOURCED_PATH_HASHES+=("$hashed_path")
+        else
+            debug "$path is not accessible; cannot source"
+        fi
+    done
+}
+declare -fx source_if_exists
+
+add_path() {
+    local new_path="$1"
+    if [ -d "$new_path" ]; then
+        export PATH="$new_path:$PATH"
+    fi
+}
+declare -fx add_path
+
+lsofps () {
+    local file="$1"
+    lsof -t "$file" | xargs ps -ww -p
+}
+declare -fx lsofps
+
+psg () {
+    local search="$(printf '[%s]%s' ${1:0:1} ${1:1})"
+    ps aux | grep "$search"
+}
+declare -fx psg
+
+build_alias () {
+    local dest="$1"
+    shift
+    local src="$1"
+    shift
+    local args="$@"
+    local current_src
+
+    if alias "$src" >/dev/null 2>&1; then
+        current_src="$(alias "$src")"
+        current_src="${current_src:10}"
+        current_src="${current_src:0:((${#current_src}-1))}"
+    else
+        current_src="$src"
+    fi
+
+    alias "$dest"="$current_src $args"
+}
+declare -fx build_alias

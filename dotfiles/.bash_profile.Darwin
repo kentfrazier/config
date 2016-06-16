@@ -1,6 +1,4 @@
-# MacPorts Installer addition on 2013-12-19_at_11:42:36: adding an appropriate PATH variable for use with MacPorts.
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+add_path "/opt/local/sbin" "/opt/local/bin"
+source_if_exists "$(brew --prefix)/share/bash-completion/bash_completion"
 
-if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
-  . $(brew --prefix)/share/bash-completion/bash_completion
-fi
+build_alias ls ls -G
