@@ -64,7 +64,9 @@ build_alias () {
 
     if alias "$src" >/dev/null 2>&1; then
         current_src="$(alias "$src")"
-        current_src="${current_src:10}"
+        # remove the `alias $src='` prefix
+        current_src="${current_src:$(expr 8 + ${#src})}"
+        # and the trailing single quote
         current_src="${current_src:0:((${#current_src}-1))}"
     else
         current_src="$src"

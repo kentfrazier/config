@@ -14,6 +14,7 @@
 source_if_exists "$HOME/.profile.$(uname -s)" "$HOME/.profile.private"
 
 add_path "$HOME/Dropbox/scripts"
+add_path "$HOME/Dropbox/bin"
 add_path "$HOME/UADropbox/bin"
 add_path "$HOME/bin"
 

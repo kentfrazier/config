@@ -35,6 +35,7 @@ Bundle 'gmarik/vundle'
 
 "  - Github -  "
 Bundle 'Glench/Vim-Jinja2-Syntax'
+Bundle 'autowitch/hive.vim'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'dln/avro-vim'
 Bundle 'editorconfig/editorconfig-vim'
@@ -281,6 +282,14 @@ if !exists("s:autocmd_loaded")
 
     " treat webAgent2 scripts as natural
     autocmd BufWinEnter *.{wbs,WBS,wbt,WBT,wbh,WBH,wbc,WBC} set filetype=natural
+
+    autocmd FileType sh setlocal sw=2
+
+    autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+    autocmd FileType hive setlocal shiftwidth=2
+
+    autocmd BufNewFile,BufReadPost *.hql set filetype=hive
+    autocmd FileType hive setlocal shiftwidth=2
 endif
 
 " --- Write File With Sudo --- "

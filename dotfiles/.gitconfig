@@ -12,3 +12,5 @@
 	ff = only
 [stash]
     keep-index = true
+[rerere]
+	enabled = true
