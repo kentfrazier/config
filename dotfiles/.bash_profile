@@ -36,7 +36,7 @@ if [[ ! -d "$HISTDIR" ]]; then
     chmod 0700 "$HISTDIR"
 fi
 HISTTIMEFORMAT='%F %T '
-HISTFILE="$HISTDIR/$(date -j +'%Y-%m-%dT%H:%M:%S')"  # Make process-specific history file
+HISTFILE="$HISTDIR/$(date +'%Y-%m-%dT%H:%M:%S')"  # Make process-specific history file
 HISTFILESIZE=0                  # close any old history files
 HISTFILESIZE=4096               # and set a large new size
 HISTSIZE=4096
@@ -66,3 +66,4 @@ hist-clean () {
     fi
 }
 
+. "$HOME/.cargo/env"
