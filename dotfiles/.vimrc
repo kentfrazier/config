@@ -1,4 +1,5 @@
-set nocompatible    " Disables vi-compatible mode
+" Disable vi-compatible mode
+set nocompatible    
 
 " Set up environment variables to allow vim files to live in the config dir
 let $VIMHOME = $CONFIGHOME . '/vim'
@@ -39,18 +40,18 @@ Bundle 'autowitch/hive.vim'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'dln/avro-vim'
 Bundle 'editorconfig/editorconfig-vim'
-Bundle 'jmcantrell/vim-virtualenv'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'kentfrazier/html-improved-indentation'
-Bundle 'kentfrazier/sbt-vim'
-Bundle 'klen/python-mode'
+Bundle 'ktvoelker/sbt-vim'
 Bundle 'leshill/vim-json'
 Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'msanders/snipmate.vim'
 Bundle 'nelstrom/vim-markdown-folding'
 Bundle 'nelstrom/vim-visual-star-search'
 Bundle 'pangloss/vim-javascript'
+Bundle 'plytophogy/vim-virtualenv'
 Bundle 'puppetlabs/puppet-syntax-vim'
+Bundle 'python-mode/python-mode'
 Bundle 'rollxx/vim-antlr'
 Bundle 'scrooloose/nerdtree'
 Bundle 'sjl/gundo.vim'
@@ -275,18 +276,9 @@ endif
 if !exists("s:autocmd_loaded")
     let s:autocmd_loaded = 1
 
-    " treat all html files in pype projects as htmldjango
-    autocmd BufWinEnter */pype/*.html set filetype=htmldjango
-    autocmd BufWinEnter */pype/*.html setlocal iskeyword+=_
-    autocmd BufWinEnter */pype/* setlocal path+=templates
-
-    " treat webAgent2 scripts as natural
-    autocmd BufWinEnter *.{wbs,WBS,wbt,WBT,wbh,WBH,wbc,WBC} set filetype=natural
-
     autocmd FileType sh setlocal sw=2
 
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-    autocmd FileType hive setlocal shiftwidth=2
 
     autocmd BufNewFile,BufReadPost *.hql set filetype=hive
     autocmd FileType hive setlocal shiftwidth=2
@@ -504,3 +496,8 @@ endfunction
 command! GenerateTags call GenerateTags()
 
 command! -range JSONPrettify <line1>,<line2>!python -m json.tool
+
+" Hack to suppress startup warnings for Python 3
+if has('python3')
+  silent! python3 1
+endif

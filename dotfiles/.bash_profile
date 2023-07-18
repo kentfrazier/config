@@ -3,15 +3,14 @@ source_if_exists "$HOME/.profile"
 source_if_exists \
     "$HOME/.bash_profile.$(uname -s)" \
     "$HOME/.bash_profile.private"
-source_if_exists "$(which virtualenvwrapper.sh)"
+#source_if_exists "$(which virtualenvwrapper.sh)"
+source_if_exists "$HOME/.git-completion.bash"
 
 complete -cf sudo  
 
 export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-
-add_path "$HOME/anaconda/bin"
 
 # --- Aliases --- #
 alias sudo="sudo "
@@ -21,13 +20,11 @@ build_alias ll ls -lh
 build_alias la ls -A
 build_alias lla ls -lhA
 build_alias sbt-no-color sbt -Dsbt.log.noformat=true
-build_alias ssh ssh -C4c arcfour,blowfish-cbc
 build_alias vi vim
 if [ -e "$(which ggrep)" ]; then
     alias grep=ggrep
 fi
 build_alias grep grep --color=auto --exclude=ctags --exclude-dir=.git --exclude-dir=.svn --exclude-dir=.hg --exclude=*.pyc --exclude=*.pyo
-build_alias arc "$HOME/projects/arcanist/bin/arc"
 
 # --- History File Management --- #
 HISTDIR="$HOME/.history" 
@@ -51,6 +48,7 @@ hist-search () {
     for pattern in "$@"; do
         cmd="$cmd | grep -e '$pattern' --color=never"
     done
+    cmd="$cmd | sort"
     echo "$cmd"
     eval "$cmd"
 }
@@ -65,4 +63,8 @@ hist-clean () {
         $find_cmd -delete
     fi
 }
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 

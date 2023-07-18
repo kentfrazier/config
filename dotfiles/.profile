@@ -13,10 +13,14 @@
 
 source_if_exists "$HOME/.profile.$(uname -s)" "$HOME/.profile.private"
 
+add_path '/usr/local/sbin'
 add_path "$HOME/Dropbox/scripts"
 add_path "$HOME/Dropbox/bin"
 add_path "$HOME/UADropbox/bin"
 add_path "$HOME/bin"
+add_path "$HOME/local/bin"
+add_path "$HOME/anaconda/bin"
+add_path "$HOME/.cargo/bin"
 
 export EDITOR="vim"
 export CONFIGHOME="$HOME/Dropbox/config"
@@ -32,16 +36,3 @@ if [ ! -d "$CONFIG_STORAGE" ]; then
     mkdir -p "$CONFIG_STORAGE"
 fi
 
-if [ -d "$HOME/.rbenv" ]; then
-    add_path "$HOME/.rbenv/bin"
-    eval "$(rbenv init -)"
-    rbenv rehash
-elif [ -s "$HOME/.rvm/scripts/rvm" ]; then
-    . "$HOME/.rvm/scripts/rvm" 
-fi
-
-#if [[ -f /usr/libexec/java_home ]]; then
-#    export JAVA_HOME="$(/usr/libexec/java_home -v1.7)"
-#fi
-#
-#export MAVEN_OPTS='-Xmx1024m -XX:MaxPermSize=256m'

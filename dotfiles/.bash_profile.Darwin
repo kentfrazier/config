@@ -1,4 +1,10 @@
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 add_path "/opt/local/sbin" "/opt/local/bin"
-source_if_exists "$(brew --prefix)/share/bash-completion/bash_completion"
+add_path "$HOME/Dropbox/mfp-bin"
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
 build_alias ls ls -G
+
+source_if_exists /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc
+source_if_exists /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc
