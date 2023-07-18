@@ -26,56 +26,60 @@ let g:NERDTreeIgnore = ['\~$', '\.py[co]$']
 
 filetype off " toggle for vundle
 
-set runtimepath=$VIMHOME,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$VIMHOME/after,$VIMHOME/bundle/vundle
+set runtimepath=$VIMHOME,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$VIMHOME/after,$VIMHOME/bundle/Vundle.vim
 
-call vundle#rc($VIMHOME . '/bundle')
+call vundle#begin($VIMHOME . '/bundle')
 
 " --- Vundle --- "
 "  - Required -  "
-Bundle 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 
 "  - Github -  "
-Bundle 'Glench/Vim-Jinja2-Syntax'
-Bundle 'autowitch/hive.vim'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'dln/avro-vim'
-Bundle 'editorconfig/editorconfig-vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'kentfrazier/html-improved-indentation'
-Bundle 'ktvoelker/sbt-vim'
-Bundle 'leshill/vim-json'
-Bundle 'michaeljsmith/vim-indent-object'
-Bundle 'msanders/snipmate.vim'
-Bundle 'nelstrom/vim-markdown-folding'
-Bundle 'nelstrom/vim-visual-star-search'
-Bundle 'pangloss/vim-javascript'
-Bundle 'plytophogy/vim-virtualenv'
-Bundle 'puppetlabs/puppet-syntax-vim'
-Bundle 'python-mode/python-mode'
-Bundle 'rollxx/vim-antlr'
-Bundle 'scrooloose/nerdtree'
-Bundle 'sjl/gundo.vim'
-Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-ragtag'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'walm/jshint.vim'
+Plugin 'Glench/Vim-Jinja2-Syntax'
+Plugin 'autowitch/hive.vim'
+Plugin 'derekwyatt/vim-scala'
+Plugin 'dln/avro-vim'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'jmcantrell/vim-virtualenv'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'kentfrazier/html-improved-indentation'
+Plugin 'ktvoelker/sbt-vim'
+Plugin 'klen/python-mode'
+Plugin 'leshill/vim-json'
+Plugin 'michaeljsmith/vim-indent-object'
+Plugin 'msanders/snipmate.vim'
+Plugin 'nelstrom/vim-markdown-folding'
+Plugin 'nelstrom/vim-visual-star-search'
+Plugin 'pangloss/vim-javascript'
+Plugin 'puppetlabs/puppet-syntax-vim'
+Plugin 'rollxx/vim-antlr'
+Plugin 'scrooloose/nerdtree'
+Plugin 'sjl/gundo.vim'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-ragtag'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'walm/jshint.vim'
 
 " - Vim Site - "
-Bundle 'FuzzyFinder'
-Bundle 'L9'
-Bundle 'LargeFile'
-Bundle 'ZoomWin'
-Bundle 'django.vim'
-Bundle 'matchit.zip'
-Bundle 'sessionman.vim'
-Bundle 'taglist.vim'
+Plugin 'FuzzyFinder'
+Plugin 'L9'
+Plugin 'LargeFile'
+Plugin 'ZoomWin'
+Plugin 'django.vim'
+Plugin 'matchit.zip'
+Plugin 'sessionman.vim'
+Plugin 'taglist.vim'
 
 " - Other Git - "
-Bundle 'git://repo.or.cz/vcscommand'
+Plugin 'git://repo.or.cz/vcscommand'
+
+" end Vundle plugins
+call vundle#end()
 " -------------- "
+
 
 filetype on
 filetype plugin on
